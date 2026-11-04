@@ -1,5 +1,30 @@
 # Changelog
 
+### [4.0.0]
+
+**Breaking**
+
+- Requires Flutter `>=3.47.0` and Dart `^3.13.0`.
+- Migrated from `package:flutter/material.dart` / `package:flutter/cupertino.dart`
+  to the standalone `material_ui` and `cupertino_ui` packages.
+- `EasyLocalization.delegates` / `context.localizationDelegates` now return the
+  `GlobalMaterialLocalizations` delegate from `material_ui` and the
+  `GlobalCupertinoLocalizations` delegate from `cupertino_ui`. Apps still using the
+  legacy `flutter/material.dart` `MaterialApp` should migrate with
+  `dart fix --apply --code=migrate_design_widgets`.
+
+**Changes**
+
+- `AssetLoader` constructor parameters `linkedFileResolver` and `fileLoader` are optional
+  again (default to the `rootBundle` implementations), so custom loaders and the generated
+  `CodegenLoader` (`const CodegenLoader()`) compile again. `RootBundleAssetLoader()` works
+  without arguments as before.
+- Upgraded dependencies: `intl ^0.20.2`, `shared_preferences ^2.5.6`, `args ^2.7.0`,
+  `path ^1.9.1`, `flutter_lints ^6.0.0`.
+- Fixed `.tr()`/`.plural()` on `Text` dropping `textScaler`.
+- Example app: regenerated Android/iOS/macOS/web/linux projects, Material 3 theme,
+  `font_awesome_flutter ^11`, working widget test.
+
 ### [3.0.9]
 
 - Added support for linked files feature

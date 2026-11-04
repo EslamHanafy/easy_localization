@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/exceptions.dart';
 import 'package:easy_localization/src/localization.dart';
 import 'package:easy_logger/easy_logger.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,8 +17,8 @@ late String _contextPluralValue;
 class MyApp extends StatelessWidget {
   const MyApp({
     this.child = const MyWidget(),
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget child;
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyWidget extends StatelessWidget {
-  const MyWidget({Key? key}) : super(key: key);
+  const MyWidget({super.key});
 
   @override
   Widget build(context) {
@@ -51,7 +51,7 @@ class MyWidget extends StatelessWidget {
 }
 
 class MyLocalizedWidget extends StatelessWidget {
-  const MyLocalizedWidget({Key? key}) : super(key: key);
+  const MyLocalizedWidget({super.key});
 
   @override
   Widget build(context) {

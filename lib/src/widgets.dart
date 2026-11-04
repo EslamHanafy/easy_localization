@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class FutureErrorWidget extends StatelessWidget {
   final String msg;
-  const FutureErrorWidget({Key? key, this.msg = 'Loading ...'})
-      : super(key: key);
+  const FutureErrorWidget({super.key, this.msg = 'Loading ...'});
   @override
   Widget build(BuildContext context) {
     return Container(

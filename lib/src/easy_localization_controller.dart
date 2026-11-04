@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl_standalone.dart'
     if (dart.library.html) 'package:intl/intl_browser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,7 +84,7 @@ class EasyLocalizationController extends ChangeNotifier {
   //Get fallback Locale
   static Locale _getFallbackLocale(
       List<Locale> supportedLocales, Locale? fallbackLocale,
-      {final Locale? deviceLocale}) {
+      {Locale? deviceLocale}) {
     if (deviceLocale != null) {
       // a locale that matches the language code of the device locale is
       // preferred over the fallback locale
@@ -168,7 +168,7 @@ class EasyLocalizationController extends ChangeNotifier {
 
     List<AssetLoader> loaders = [
       assetLoader,
-      if (extraAssetLoaders != null) ...extraAssetLoaders
+      ...?extraAssetLoaders
     ];
 
     for (final loader in loaders) {

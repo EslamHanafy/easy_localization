@@ -1,9 +1,11 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class LanguageView extends StatelessWidget {
+  const LanguageView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +68,7 @@ class LanguageView extends StatelessWidget {
 }
 
 class _Divider extends StatelessWidget {
-  const _Divider({Key? key}) : super(key: key);
+  const _Divider();
 
   @override
   Widget build(BuildContext context) {
@@ -83,11 +85,10 @@ class _Divider extends StatelessWidget {
 
 class _SwitchListTileMenuItem extends StatelessWidget {
   const _SwitchListTileMenuItem({
-    Key? key,
     required this.title,
     required this.subtitle,
     required this.locale,
-  }) : super(key: key);
+  });
 
   final String title;
   final String subtitle;
@@ -115,7 +116,7 @@ class _SwitchListTileMenuItem extends StatelessWidget {
           onTap: () async {
             log(locale.toString(), name: toString());
             await context.setLocale(locale); //BuildContext extension method
-            Navigator.pop(context);
+            if (context.mounted) Navigator.pop(context);
           }),
     );
   }

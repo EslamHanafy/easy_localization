@@ -98,11 +98,22 @@ Example:
 
 ### ⚙️ Configuration app
 
+> **Requirements (v4+):** Flutter `>=3.47.0`, Dart `^3.13.0`.
+> Easy Localization is built on the standalone
+> [`material_ui`](https://pub.dev/packages/material_ui) and
+> [`cupertino_ui`](https://pub.dev/packages/cupertino_ui) packages.
+> `context.localizationDelegates` provides the `GlobalMaterialLocalizations`
+> (from `material_ui`), `GlobalCupertinoLocalizations` (from `cupertino_ui`) and
+> `GlobalWidgetsLocalizations` delegates, so build your app with
+> `package:material_ui/material_ui.dart` / `package:cupertino_ui/cupertino_ui.dart`
+> instead of `package:flutter/material.dart` / `package:flutter/cupertino.dart`.
+> To migrate your own imports run
+> `dart fix --apply --code=migrate_design_widgets`.
+
 Add EasyLocalization widget like in example
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void main() async {

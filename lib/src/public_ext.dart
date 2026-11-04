@@ -35,6 +35,8 @@ extension TextTranslateExtension on Text {
           locale: locale,
           softWrap: softWrap,
           overflow: overflow,
+          textScaler: textScaler,
+          // ignore: deprecated_member_use
           textScaleFactor: textScaleFactor,
           maxLines: maxLines,
           semanticsLabel: semanticsLabel,
@@ -67,6 +69,8 @@ extension TextTranslateExtension on Text {
           locale: locale,
           softWrap: softWrap,
           overflow: overflow,
+          textScaler: textScaler,
+          // ignore: deprecated_member_use
           textScaleFactor: textScaleFactor,
           maxLines: maxLines,
           semanticsLabel: semanticsLabel,

@@ -20,7 +20,13 @@ abstract class AssetLoader {
   final FileLoader fileLoader;
   final LinkedFileResolver linkedFileResolver;
 
-  const AssetLoader({required this.linkedFileResolver, required this.fileLoader});
+  /// Both parameters are optional so custom loaders can simply call
+  /// `const MyLoader();`. They default to the Flutter `rootBundle` based
+  /// implementations.
+  const AssetLoader({
+    this.linkedFileResolver = const JsonLinkedFileResolver(fileLoader: RootBundleFileLoader()),
+    this.fileLoader = const RootBundleFileLoader(),
+  });
 
   Future<Map<String, dynamic>?> load(String path, Locale locale);
 }
@@ -29,8 +35,7 @@ abstract class AssetLoader {
 /// default used is RootBundleAssetLoader which uses flutter's assetloader
 ///
 class RootBundleAssetLoader extends AssetLoader {
-  const RootBundleAssetLoader({required LinkedFileResolver linkedFileResolver, required FileLoader fileLoader})
-      : super(linkedFileResolver: linkedFileResolver, fileLoader: fileLoader);
+  const RootBundleAssetLoader({super.linkedFileResolver, super.fileLoader});
 
   factory RootBundleAssetLoader.fromRootBundle() {
     return const RootBundleAssetLoader(

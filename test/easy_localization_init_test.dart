@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,7 +39,7 @@ Future<void> main() async {
 class I18nObserver extends StatefulWidget {
   final Widget child;
 
-  const I18nObserver({Key? key, required this.child}) : super(key: key);
+  const I18nObserver({super.key, required this.child});
 
   @override
   State<I18nObserver> createState() => _I18nObserverState();

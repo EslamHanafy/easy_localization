@@ -7,7 +7,7 @@ List<String> printLog = <String>[];
 ZoneSpecification? spec;
 dynamic Function() overridePrint(Function() testFn) => () {
       spec = ZoneSpecification(
-        print: (_, __, ___, String msg) {
+        print: (_, _, _, String msg) {
           // Add to log instead of printing to stdout
           printLog.add(msg);
         },

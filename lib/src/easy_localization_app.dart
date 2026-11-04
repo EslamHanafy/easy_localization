@@ -3,8 +3,13 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/easy_localization_controller.dart';
 import 'package:easy_logger/easy_logger.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:cupertino_ui/cupertino_ui.dart'
+    show GlobalCupertinoLocalizations;
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart'
+    show GlobalWidgetsLocalizations;
+import 'package:material_ui/material_ui.dart'
+    show GlobalMaterialLocalizations;
 
 import 'localization.dart';
 
@@ -127,7 +132,7 @@ class EasyLocalization extends StatefulWidget {
   final Widget Function(FlutterError? message)? errorWidget;
 
   EasyLocalization({
-    Key? key,
+    super.key,
     required this.child,
     required this.supportedLocales,
     required this.path,
@@ -145,8 +150,7 @@ class EasyLocalization extends StatefulWidget {
     this.saveLocale = true,
     this.errorWidget,
   })  : assert(supportedLocales.isNotEmpty),
-        assert(path.isNotEmpty),
-        super(key: key) {
+        assert(path.isNotEmpty) {
     EasyLocalization.logger.debug('Start');
   }
 
@@ -253,10 +257,10 @@ class _EasyLocalizationProvider extends InheritedWidget {
 
   // _EasyLocalizationDelegate get delegate => parent.delegate;
 
-  _EasyLocalizationProvider(this.parent, this._localeState, {Key? key, required this.delegate})
+  _EasyLocalizationProvider(this.parent, this._localeState, {required this.delegate})
       : currentLocale = _localeState.locale,
         _translationsLoaded = _localeState.translations != null,
-        super(key: key, child: parent.child) {
+        super(child: parent.child) {
     EasyLocalization.logger.debug('Init provider');
   }
 
