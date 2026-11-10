@@ -50,7 +50,7 @@ void main() {
           fallbackTranslations: r.fallbackTranslations,
           ignorePluralRules: false);
       expect(Localization.instance.plural('hat', 2), 'other hats');
-      expect(Localization.instance.plural('hat', 0), 'other hats');
+      expect(Localization.instance.plural('hat', 0), 'no hats');
       expect(Localization.instance.plural('hat', 3), 'other hats');
     });
     test('russian one', () async {
@@ -86,7 +86,7 @@ void main() {
           translations: r.translations,
           fallbackTranslations: r.fallbackTranslations,
           ignorePluralRules: false);
-      expect(Localization.instance.plural('hat', 0), 'many hats');
+      expect(Localization.instance.plural('hat', 0), 'no hats');
       expect(Localization.instance.plural('hat', 5), 'many hats');
     });
   });

@@ -46,7 +46,7 @@ void main() {
       );
 
       expect(Localization.instance.plural('hat', 1), 'one hat');
-      expect(Localization.instance.plural('hat', 0), 'other hats');
+      expect(Localization.instance.plural('hat', 0), 'no hats');
       expect(Localization.instance.plural('hat', 2), 'other hats');
       expect(Localization.instance.plural('hat', 3), 'other hats');
       expect(Localization.instance.plural('hat', 4), 'other hats');
@@ -109,7 +109,7 @@ void main() {
         fallbackTranslations: r.fallbackTranslations,
         ignorePluralRules: false,
       );
-      expect(Localization.instance.plural('hat', 0), 'many hats');
+      expect(Localization.instance.plural('hat', 0), 'no hats');
       expect(Localization.instance.plural('hat', 5), 'many hats');
       expect(Localization.instance.plural('hat', 101), 'one hat');
     });
@@ -207,6 +207,68 @@ void main() {
       expect(Localization.instance.plural('hat', 101), 'other hats');
       expect(Localization.instance.plural('hat', 111), 'other hats');
       expect(Localization.instance.plural('hat', 103), 'other hats');
+    });
+  });
+
+  group('Explicit zero text', () {
+    test('English 0 uses the zero entry when it exists (rules ON)', () async {
+      Localization.load(
+        const Locale('en'),
+        translations: r.translations,
+        fallbackTranslations: r.fallbackTranslations,
+        ignorePluralRules: false,
+      );
+      expect(Localization.instance.plural('hat', 0), 'no hats');
+    });
+    test('English 0 falls back to other when there is no zero entry (rules ON)', () async {
+      Localization.load(
+        const Locale('en'),
+        translations: r.translations,
+        fallbackTranslations: r.fallbackTranslations,
+        ignorePluralRules: false,
+      );
+      expect(Localization.instance.plural('hat_other', 0), 'other hats');
+    });
+    test('English 0 ignores a zero entry that only the fallback has (rules ON)', () async {
+      final en = EasyLocalizationController(
+          forceLocale: const Locale('en'),
+          supportedLocales: [const Locale('en'), const Locale('fb')],
+          fallbackLocale: const Locale('fb'),
+          path: 'path',
+          useOnlyLangCode: true,
+          useFallbackTranslations: true,
+          onLoadError: (FlutterError e) {
+            log(e.toString());
+          },
+          saveLocale: false,
+          assetLoader: const JsonAssetLoader());
+      await en.loadTranslations();
+      Localization.load(
+        const Locale('en'),
+        translations: en.translations,
+        fallbackTranslations: en.fallbackTranslations,
+        ignorePluralRules: false,
+      );
+      expect(Localization.instance.plural('test_fallback_plurals', 0), '0 seconds');
+    });
+    test('English 1 and 5 keep their plural rule cases (rules ON)', () async {
+      Localization.load(
+        const Locale('en'),
+        translations: r.translations,
+        fallbackTranslations: r.fallbackTranslations,
+        ignorePluralRules: false,
+      );
+      expect(Localization.instance.plural('hat', 1), 'one hat');
+      expect(Localization.instance.plural('hat', 5), 'other hats');
+    });
+    test('Arabic 0 uses the zero entry (rules ON, unchanged)', () async {
+      Localization.load(
+        const Locale('ar'),
+        translations: r.translations,
+        fallbackTranslations: r.fallbackTranslations,
+        ignorePluralRules: false,
+      );
+      expect(Localization.instance.plural('hat', 0), 'no hats');
     });
   });
 }

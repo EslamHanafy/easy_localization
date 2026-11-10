@@ -150,7 +150,12 @@ class Localization {
     late String res;
 
     final pluralRule = _pluralRule(_locale.languageCode, value);
-    final pluralCase = pluralRule != null ? pluralRule() : _pluralCaseFallback(value);
+    var pluralCase = pluralRule != null
+        ? pluralRule()
+        : _pluralCaseFallback(value);
+    if (value == 0 && _hasZeroText(key)) {
+      pluralCase = PluralCase.ZERO;
+    }
 
     switch (pluralCase) {
       case PluralCase.ZERO:
@@ -185,6 +190,15 @@ class Localization {
 
   String _gender(String key, {required String gender}) {
     return _resolve('$key.$gender');
+  }
+
+  /// An explicit `zero` text is a deliberate choice of the translator, so it is
+  /// used for a count of 0 in every language, including languages whose plural
+  /// rules have no zero case (English). Only this language's own text counts:
+  /// a zero text of the fallback language never replaces this language's case.
+  bool _hasZeroText(String key) {
+    final tag = '$key.zero';
+    return _resolve(tag, logging: false, fallback: false) != tag;
   }
 
   String _resolvePlural(String key, String subKey) {
